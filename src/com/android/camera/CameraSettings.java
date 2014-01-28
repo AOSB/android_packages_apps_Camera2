@@ -48,7 +48,6 @@ import java.util.StringTokenizer;
 public class CameraSettings {
     private static final int NOT_FOUND = -1;
 
-    public static final String KEY_PHOTOVIDEO_STORAGE = "pref_photovideo_storage_key";
     public static final String KEY_VERSION = "pref_version_key";
     public static final String KEY_LOCAL_VERSION = "pref_local_version_key";
     public static final String KEY_RECORD_LOCATION = "pref_camera_recordlocation_key";
@@ -408,8 +407,6 @@ public class CameraSettings {
         ListPreference slowShutter = group.findPreference(KEY_SLOW_SHUTTER);
         ListPreference asd = group.findPreference(KEY_ASD);
 
- ListPreference pvSt = group.findPreference(KEY_PHOTOVIDEO_STORAGE);
-
         // Since the screen could be loaded from different resources, we need
         // to check if the preference is available here
         if (videoQuality != null) {
@@ -475,9 +472,6 @@ public class CameraSettings {
         }
         if (asd != null && !CameraUtil.isAutoSceneDetectionSupported(mParameters)) {
             removePreference(group, asd.getKey());
-        }
-    if (isFrontCamera&&pvSt != null) {
-  removePreference(group, pvSt.getKey());          
         }
         qcomInitPreferences(group);
     }
