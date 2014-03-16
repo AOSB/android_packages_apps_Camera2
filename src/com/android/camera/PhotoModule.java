@@ -2286,6 +2286,7 @@ public class PhotoModule
         String jpegQuality = mPreferences.getString(
                 CameraSettings.KEY_JPEG_QUALITY,
                 mActivity.getString(R.string.pref_camera_jpegquality_default));
+
         //mUnsupportedJpegQuality = false;
         Size pic_size = mParameters.getPictureSize();
         if (pic_size == null) {
@@ -2294,7 +2295,22 @@ public class PhotoModule
             if ("100".equals(jpegQuality) && (pic_size.width >= 3200)) {
                 //mUnsupportedJpegQuality = true;
             } else {
-                mParameters.setJpegQuality(Integer.parseInt(jpegQuality));
+                // Handle an NFE that isn't prevented by CameraSettings database update??
+                int qual = 85;
+                try {
+                    qual = Integer.parseInt(jpegQuality);
+                } catch (NumberFormatException nfe) {
+                    if (jpegQuality.equals("normal")) {
+                        qual=65;
+                    } else if (jpegQuality.equals("fine")) {
+                        qual=75;
+                    }
+                    Editor editor = mPreferences.edit();
+                    editor.putString(CameraSettings.KEY_JPEG_QUALITY,
+                            Integer.toString(qual));
+                    editor.apply();
+                }
+                mParameters.setJpegQuality(qual);
             }
         }
 
