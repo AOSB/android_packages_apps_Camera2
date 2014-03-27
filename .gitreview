@@ -1,0 +1,6 @@
+[gerrit]
+host=review.pac-rom.com
+port=29418
+project=android_packages_apps_Camera2.git
+defaultbranch=pac-4.4
+
