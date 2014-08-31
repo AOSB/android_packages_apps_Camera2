@@ -951,6 +951,10 @@ public class CameraSettings {
         return params.get("face-beautify") != null;
     }
 
+    public static boolean isBeautyModeEnabled(Parameters params) {
+        return isBeautyModeSupported(params) && (Integer.valueOf(params.get("face-beautify")) > 0);
+    }
+
     /**
      * Enable video mode for certain cameras.
      *
